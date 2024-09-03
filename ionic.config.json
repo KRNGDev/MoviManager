@@ -1,0 +1,7 @@
+{
+  "name": "MoviManager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
