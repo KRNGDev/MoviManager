@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp } from 'ionicons/icons';
+import { mailOutline,library,libraryOutline,librarySharp, planet,planetOutline,planetSharp,home,homeOutline,homeSharp, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +14,14 @@ import { mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutlin
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inicio', url: '/folder/Inicio', icon: 'house' },
+    { title: 'Inicio', url: '/folder/Inicio', icon: 'home' },
     { title: 'Buscar', url: '/pages/buscar', icon: 'mail' },
-    { title: 'Mi lista', url: '/pages/milista', icon: 'paper-plane' },
+    { title: 'Mi lista', url: '/pages/milista', icon: 'library' },
     { title: 'Favoritos', url: '/folder/Favoritos', icon: 'heart' },
-    { title: 'Acerca de ..', url: '/pages/acercade', icon: 'world' },
+    { title: 'Acerca de ..', url: '/pages/acercade', icon: 'planet' },
   ];
   public labels = ['Accion', 'Fantasia', 'Terror'];
   constructor() {
-    addIcons({ mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp });
+    addIcons({ mailOutline,library,libraryOutline,librarySharp,planet,planetOutline,planetSharp,home,homeOutline,homeSharp, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp });
   }
 }
