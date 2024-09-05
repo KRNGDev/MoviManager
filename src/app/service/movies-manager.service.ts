@@ -10,6 +10,8 @@ export class MoviesManagerService {
     this.rellenarArray();
   }
 
+  
+
   public getPeliculas(): Movie[] {
     return this.peliculas;
   }
