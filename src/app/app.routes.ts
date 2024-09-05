@@ -23,4 +23,8 @@ export const routes: Routes = [
     path: 'pages/milista',
     loadComponent: () => import('./pages/milista/milista.page').then(m => m.MilistaPage)
   },
+  {
+    path: 'ficha/:id',
+    loadComponent: () => import('./pages/ficha/ficha.page').then(m => m.FichaPage)
+  },
 ];

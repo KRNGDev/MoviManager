@@ -25,7 +25,7 @@ export class MilistaPage implements OnInit {
   }
 
   buscar() {
-    this.peliculasFiltradas = this.peliculas.filter(peli => peli.titulo.toLowerCase().includes(this.tituloBuscado.toLocaleLowerCase()));
+    this.peliculasFiltradas = this.peliculas.filter(peli => peli.Title.toLowerCase().includes(this.tituloBuscado.toLocaleLowerCase()));
     console.log(this.tituloBuscado);
   }
 
