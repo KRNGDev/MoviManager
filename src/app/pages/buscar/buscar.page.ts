@@ -1,7 +1,7 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonButton, IonItemSliding, IonItemOption, IonItemOptions, IonAvatar, IonLabel, IonInput, IonProgressBar, IonToast, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonButton, IonItemSliding, IonItemOption, IonItemOptions, IonAvatar, IonLabel, IonInput, IonProgressBar, IonToast, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonAlert } from '@ionic/angular/standalone';
 import { addIcons } from "ionicons";
 import { Movie } from 'src/app/interface/movie';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -13,12 +13,15 @@ import { HttpomdbService } from 'src/app/service/httpomd/httpomdb.service';
   templateUrl: './buscar.page.html',
   styleUrls: ['./buscar.page.scss'],
   standalone: true,
-  imports: [IonCardContent, IonThumbnail, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonToast, RouterLinkActive, RouterLink, IonProgressBar, IonInput, IonLabel, IonAvatar, IonItemOptions, IonItemOption, IonItemSliding, IonButton, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonAlert, IonCardContent, IonThumbnail, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonToast, RouterLinkActive, RouterLink, IonProgressBar, IonInput, IonLabel, IonAvatar, IonItemOptions, IonItemOption, IonItemSliding, IonButton, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class BuscarPage {
   public tituloPelicula: string = "";
   isGuardado: boolean = false;
+  isAlertOpen: boolean = false;
+  isAlertError: boolean = false;
   mensajeToast: string = '';
+  mensajeAlerta: string = '';
   peliculas: Movie[] = [];
   cargando: boolean = false;
 
@@ -26,9 +29,20 @@ export class BuscarPage {
   constructor(private servicio: HttpomdbService, private movieService: MoviesManagerService) { }
 
   agregar(id: number) {
-    this.setToast();
-    this.mensajeToast = 'Se ha guardado a Mi lista "' + this.peliculas[id].Title + '"';
-    this.movieService.setPelicula(this.peliculas[id]);
+    try {
+      this.movieService.setPelicula(this.peliculas[id]);
+      this.mensajeToast = 'Se ha guardado a Mi lista "' + this.peliculas[id].Title + '"';
+      this.setToast();
+    } catch (e) {
+      console.log(e)
+      this.mensajeToast = 'La pelicula "' + this.peliculas[id].Title + '" ¡¡ Ya esta Guardado en tu lista !!';
+      this.setToast();
+
+    }
+
+
+
+
   }
   buscar() {
     this.estaCargando();
@@ -36,6 +50,9 @@ export class BuscarPage {
     this.servicio.getMovie(this.tituloPelicula).subscribe(data => {
       if (data.Response === 'False') {
         console.error("DAto no encontrado");
+        this.estaCargando();
+        this.mensajeAlerta = "No se ha encontrado ninguna pelicula con la busqueda : '" + this.tituloPelicula + "'.";
+        this.setErrorOpen(true);
       } else {
         this.estaCargando();
         console.log(data.Search);
@@ -47,6 +64,14 @@ export class BuscarPage {
 
       }
     })
+  }
+
+
+  setOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
+  }
+  setErrorOpen(isOpen: boolean) {
+    this.isAlertError = isOpen;
   }
   estaCargando() {
     this.cargando = !this.cargando;

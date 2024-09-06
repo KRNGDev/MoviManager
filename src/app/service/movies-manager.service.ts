@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Movie } from '../interface/movie';
-import { HttpomdbService } from './httpomd/httpomdb.service';
-import { BuscarPage } from '../pages/buscar/buscar.page';
+import { Storage } from '@ionic/storage-angular'
+import { Observable } from 'rxjs';
+
+const NODO_RAIZ = "peliculas";
 
 @Injectable({
   providedIn: 'root'
@@ -9,29 +11,72 @@ import { BuscarPage } from '../pages/buscar/buscar.page';
 export class MoviesManagerService {
   private peliculas: Movie[] = [];
   private peliBuscar: Movie[] = [];
-  private peliFavoritos: Movie[] = [];
-  constructor() {
-    this.rellenarArray();
+  constructor(private storage: Storage) {
+    this.init();
   }
 
-  public getFavoritos(): Movie[] {
-    return this.peliFavoritos;
-  }
-  public setFavoritos(peli: Movie[]) {
-
-    this.peliFavoritos=peli;
-
+  async init() {
+    this.storage = await this.storage.create().finally(() => {
+      this.rellenarArray();
+    });
   }
 
+  rellenarArray() {
+    this.storage.get(NODO_RAIZ).
+      then((peliculasDB) => {
+        if (peliculasDB != null) {
+          peliculasDB.forEach((element: Movie) => {
+            this.peliculas.push(element);
+          });
+
+        }
+      })
+  }
+
+  borrarPelicula(peli: Movie) {
+    this.peliculas.splice(this.peliculas.indexOf(peli), 1);
+  }
+
+
+
+  //Metodo privado para agregar la pelicula ala base de datos local
+
+  guardarPelicula() {
+    this.storage.get(NODO_RAIZ).
+      then((data) => {
+
+        this.storage.set(NODO_RAIZ, this.peliculas);
+
+      }).
+      catch((error) => {
+        console.error("Error:" + error);
+      }).
+      finally(() => {
+        console.log("Fin del proceso de almacenamiento");
+      });
+  }
+  //Metodo Público para rellenar array
+
+  public setPelicula(peli: Movie) {
+    console.log(peli.Title);
+    console.log(peli.imdbID);
+    if (this.peliculas.find(obj => obj.imdbID === peli.imdbID)) {
+      throw new Error("La pelicula ya esta en la lista")
+    } else {
+      this.peliculas.push(peli);
+      this.guardarPelicula();
+    }
+
+
+  }
+
+
+  //Obtener todas las películas
 
   public getPeliculas(): Movie[] {
     return this.peliculas;
   }
-  public setPelicula(peli: Movie) {
 
-    this.peliculas.push(peli);
-
-  }
   public getBuscar(): Movie[] {
     return this.peliBuscar;
   }
@@ -41,38 +86,5 @@ export class MoviesManagerService {
 
   }
 
-  rellenarArray() {
-    let p1: Movie = {
-      Title: "Jurassic Park",
-      Type: "Thriller",
-      Year: 1994,
-      imdbId: '',
-      Poster: "https://upload.wikimedia.org/wikipedia/en/9/93/Jurassic_Park_%28franchise_logo%29.png",
-      sinopsis: "Peliculon que no veas ",
-      fav: true,
-    }
-    let p2: Movie = {
-      Title: "Señor de los Anillos",
-      Type: "Aventuras",
-      Year: 2001,
-      Poster: "https://proassetspdlcom.cdnstatics2.com/usuaris/libros/fotos/210/original/portada_el-senor-de-los-anillos_j-r-r-tolkien_201601252224.jpg",
-      sinopsis: "Peliculon que no veas ",
-      fav: true,
-      imdbId: '',
-    }
-    let p3: Movie = {
-      Title: "Batman",
-      Type: "Aventuras",
-      Year: 1989,
-      Poster: "https://xl.movieposterdb.com/14_08/1989/96895/xl_96895_e2b89c79.jpg",
-      sinopsis: "Peliculon que no veas ",
-      fav: true,
-      imdbId: '',
-    }
-    this.peliculas.push(p1);
-    this.peliculas.push(p2);
-    this.peliculas.push(p3);
-
-  }
 
 }

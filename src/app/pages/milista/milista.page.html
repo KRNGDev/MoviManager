@@ -4,6 +4,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Movie Manager | Mi lista</ion-title>
+
+    <ion-avatar aria-hidden="true" slot="end">
+      <img alt="" src="../../../assets/logo.png" />
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
@@ -22,27 +26,30 @@
         (keyup)="buscar()"
       ></ion-input>
     </ion-item>
-    
   </ion-list>
 
   <ion-card>
     <ion-card-header>
       <ion-card-title>Mis Peliculas</ion-card-title>
-      <ion-card-subtitle>{{peliculasFiltradas.length}} peliculas encontradas</ion-card-subtitle>
+      <ion-card-subtitle
+        >{{peliculasFiltradas.length}} peliculas encontradas</ion-card-subtitle
+      >
     </ion-card-header>
 
     <ion-progress-bar *ngIf="cargando" type="indeterminate"></ion-progress-bar>
-
 
     <ion-card-content>
       <ion-list>
         <ion-item-sliding *ngFor="let peli of peliculasFiltradas;index as i">
           <ion-item-options side="start">
-            
-              <ion-item-option color="danger">Borrar</ion-item-option>
-            
+            <ion-item-option>Favorito</ion-item-option>
           </ion-item-options>
-          <ion-item [button]="true" [routerLink]="['/ficha/',i]" routerLinkActive="router-link-active">
+
+          <ion-item
+            [button]="true"
+            [routerLink]="['/ficha/',i]"
+            routerLinkActive="router-link-active"
+          >
             <ion-thumbnail slot="start">
               <img [alt]="['imagen ',peli.Title]" [src]="[peli.Poster]" />
             </ion-thumbnail>
@@ -50,13 +57,18 @@
             <ion-avatar>
               <ion-label>{{peli.Year}} </ion-label>
             </ion-avatar>
-            <ion-item-options side="end">
-              <ion-item-option>Favorito</ion-item-option>
-            </ion-item-options>
           </ion-item>
+          <ion-item-options side="end">
+            <ion-button (click)="eliminar(i)" color="danger">Borrar</ion-button>
+          </ion-item-options>
         </ion-item-sliding>
       </ion-list>
     </ion-card-content>
   </ion-card>
-
 </ion-content>
+<ion-alert
+  [isOpen]="borrando"
+  header="¿Quiere borralo de la lista?"
+  [buttons]="alertButtons"
+  (didDismiss)="ocultarDialogo()"
+></ion-alert>

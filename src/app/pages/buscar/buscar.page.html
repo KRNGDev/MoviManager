@@ -4,6 +4,9 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Movie Manager | Buscar</ion-title>
+    <ion-avatar aria-hidden="true" slot="end">
+      <img alt="" src="../../../assets/logo.png" />
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
@@ -15,29 +18,39 @@
   </ion-header>
   <ion-list [inset]="true">
     <ion-item>
-      <ion-input [(ngModel)]="tituloPelicula" name="tituloPelicula" label="Titulo : "
-        placeholder="Pelicula"></ion-input>
+      <ion-input
+        [(ngModel)]="tituloPelicula"
+        name="tituloPelicula"
+        label="Titulo : "
+        placeholder="Pelicula"
+      ></ion-input>
     </ion-item>
     <ion-button expand="block" (click)="buscar()">Buscar</ion-button>
   </ion-list>
 
-  
   <ion-card>
     <ion-card-header>
       <ion-card-title>Busqueda</ion-card-title>
-      <ion-card-subtitle>{{peliculas.length}} peliculas encontradas</ion-card-subtitle>
+      <ion-card-subtitle
+        >{{peliculas.length}} peliculas encontradas</ion-card-subtitle
+      >
     </ion-card-header>
 
     <ion-progress-bar *ngIf="cargando" type="indeterminate"></ion-progress-bar>
 
-
     <ion-card-content>
       <ion-list>
         <ion-item-sliding *ngFor="let peli of peliculas;index as i">
-          <ion-item-options side="start">
-            <ion-item-option color="success" (click)="agregar(i)">Guardar</ion-item-option>
+          <ion-item-options side="end">
+            <ion-item-option color="success" (click)="agregar(i)"
+              >Guardar</ion-item-option
+            >
           </ion-item-options>
-          <ion-item [button]="true" [routerLink]="['/ficha/',i]" routerLinkActive="router-link-active">
+          <ion-item
+            [button]="true"
+            [routerLink]="['/ficha/',i]"
+            routerLinkActive="router-link-active"
+          >
             <ion-thumbnail slot="start">
               <img [alt]="['imagen ',peli.Title]" [src]="[peli.Poster]" />
             </ion-thumbnail>
@@ -50,8 +63,17 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-
- 
-  
-  <ion-toast [isOpen]="isGuardado" [message]="mensajeToast" [duration]="2000" (didDismiss)="setToast()"></ion-toast>
+  <ion-alert
+    [isOpen]="isAlertError"
+    header="Error en la Busqueda"
+    subHeader="MoviManager v1.0.1"
+    [message]="mensajeAlerta"
+    (didDismiss)="setErrorOpen(false)"
+  ></ion-alert>
+  <ion-toast
+    [isOpen]="isGuardado"
+    [message]="mensajeToast"
+    [duration]="2000"
+    (didDismiss)="setToast()"
+  ></ion-toast>
 </ion-content>

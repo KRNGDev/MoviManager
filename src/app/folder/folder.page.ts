@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent } from '@ionic/angular/standalone';
 import { addIcons } from "ionicons";
@@ -9,7 +10,7 @@ import { AcercadePage } from '../pages/acercade/acercade.page';
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
   standalone: true,
-  imports: [IonHeader, AcercadePage, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent],
+  imports: [IonHeader, CommonModule, AcercadePage, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent],
 })
 export class FolderPage implements OnInit {
   public folder!: string;
