@@ -9,10 +9,19 @@ import { BuscarPage } from '../pages/buscar/buscar.page';
 export class MoviesManagerService {
   private peliculas: Movie[] = [];
   private peliBuscar: Movie[] = [];
+  private peliFavoritos: Movie[] = [];
   constructor() {
     this.rellenarArray();
   }
 
+  public getFavoritos(): Movie[] {
+    return this.peliFavoritos;
+  }
+  public setFavoritos(peli: Movie[]) {
+
+    this.peliFavoritos=peli;
+
+  }
 
 
   public getPeliculas(): Movie[] {

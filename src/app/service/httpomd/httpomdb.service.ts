@@ -18,6 +18,6 @@ export class HttpomdbService {
   constructor() { }
 
   getMovie(title: string): Observable<any> {
-    return this.http.get<any>(`${BASE_URL}?apikey=${API_KEY}&s=${title}`)
+    return this.http.get<any>(`${BASE_URL}?apikey=${API_KEY}&s=${title}`).pipe(delay(1000));
   }
 }

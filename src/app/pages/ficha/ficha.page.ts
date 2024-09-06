@@ -24,7 +24,7 @@ export class FichaPage implements OnInit {
   constructor(private servicio: MoviesManagerService, private location: Location) { }
 
   darFicha(): Movie {
-    return this.movie[Number(this.dato)];
+      return this.movie[Number(this.dato)];
   }
   pagAtras() {
     this.location.back();
