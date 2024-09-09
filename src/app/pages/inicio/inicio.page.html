@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-menu-button ></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Movie Manager | Inicio</ion-title>
+    <ion-title>Inicio</ion-title>
 
     <ion-avatar aria-hidden="true" slot="start">
       <img alt="" src="../../../assets/icono.png" />
@@ -11,44 +11,43 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true">
-
   <ion-card *ngIf="getRecomendada()!==undefined">
-  <ion-card-header>
-    <ion-card-title>Pelicula Recomendada</ion-card-title>
-    <ion-card-subtitle
-      > Entre muchas de ellas</ion-card-subtitle
-    >
-  </ion-card-header>
+    <ion-card-header>
+      <ion-card-title>Pelicula Recomendada</ion-card-title>
+      <ion-card-subtitle> Entre muchas de ellas</ion-card-subtitle>
+    </ion-card-header>
 
-  <ion-card class="cabecera">
-
-    <img class="ion-margin " alt="Silhouette of mountains" [src]="[getRecomendada().Poster]" />
     <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{getRecomendada().Title}}</ion-card-title>
-        <ion-card-subtitle>{{getRecomendada().Year}}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-subtitle>Director:</ion-card-subtitle>
-      <ion-chip>{{getRecomendada().Director}}</ion-chip>
+      <ion-card-title>{{getRecomendada().Title}}</ion-card-title>
+      <div class="cabecera">
+        <img
+          class="ion-margin"
+          alt="Silhouette of mountains"
+          [src]="[getRecomendada().Poster]"
+        />
 
-      <ion-card-subtitle>Reparto:</ion-card-subtitle>
-      <ion-chip>{{getRecomendada().Actors}}</ion-chip>
+        <div>
+          <ion-card-subtitle>Año:</ion-card-subtitle>
+          <ion-chip>{{getRecomendada().Year}}</ion-chip>
 
-      <ion-card-subtitle>Critica:</ion-card-subtitle>
-      <ion-chip>{{getRecomendada().imdbRating}}</ion-chip>
+          <ion-card-subtitle>Director:</ion-card-subtitle>
+          <ion-chip>{{getRecomendada().Director}}</ion-chip>
+
+          <ion-card-subtitle>Reparto:</ion-card-subtitle>
+          <ion-chip>{{getRecomendada().Actors}}</ion-chip>
+
+          <ion-card-subtitle>Critica:</ion-card-subtitle>
+          <ion-chip>{{getRecomendada().imdbRating}}</ion-chip>
+        </div>
+      </div>
+    </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>Resumen:</ion-card-title>
+
+        <ion-card-subtitle>{{getRecomendada().Plot}}</ion-card-subtitle>
+      </ion-card-content>
     </ion-card>
   </ion-card>
-
-  <ion-card>
-    <ion-card-content>
-
-      <ion-card-title>Resumen:</ion-card-title>
-
-      <ion-card-subtitle>{{getRecomendada().Plot}}</ion-card-subtitle>
-    </ion-card-content>
-
-  </ion-card>
-</ion-card>
 </ion-content>

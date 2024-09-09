@@ -3,8 +3,8 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Movie Manager | Detalle</ion-title>
-    <ion-avatar  aria-hidden="true" slot="start">
+    <ion-title>Detalle</ion-title>
+    <ion-avatar aria-hidden="true" slot="start">
       <img alt="" src="../../../assets/icono.png" />
     </ion-avatar>
   </ion-toolbar>
@@ -15,28 +15,33 @@
 </ion-content>
 
 <ion-content *ngIf="getDetallePeli()!==undefined" [fullscreen]="true">
-  <ion-card class="cabecera">
+  <ion-card>
+    <ion-card-title>{{getDetallePeli()?.Title}}</ion-card-title>
+    <div class="cabecera">
+      <img
+        class="ion-margin"
+        alt="Silhouette of mountains"
+        [src]="[getDetallePeli()?.Poster]"
+      />
 
-    <img class="ion-margin " alt="Silhouette of mountains" [src]="[getDetallePeli()?.Poster]" />
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{getDetallePeli()?.Title}}</ion-card-title>
-        <ion-card-subtitle>{{getDetallePeli()?.Year}}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-subtitle>Director:</ion-card-subtitle>
-      <ion-chip>{{getDetallePeli()?.Director}}</ion-chip>
+      <div>
+        <ion-card-subtitle>Año:</ion-card-subtitle>
+        <ion-chip>{{getDetallePeli()?.Year}}</ion-chip>
 
-      <ion-card-subtitle>Reparto:</ion-card-subtitle>
-      <ion-chip>{{getDetallePeli()?.Actors}}</ion-chip>
+        <ion-card-subtitle>Director:</ion-card-subtitle>
+        <ion-chip>{{getDetallePeli()?.Director}}</ion-chip>
 
-      <ion-card-subtitle>Critica:</ion-card-subtitle>
-      <ion-chip>{{getDetallePeli()?.imdbRating}}</ion-chip>
-    </ion-card>
+        <ion-card-subtitle>Reparto:</ion-card-subtitle>
+        <ion-chip>{{getDetallePeli()?.Actors}}</ion-chip>
+
+        <ion-card-subtitle>Critica:</ion-card-subtitle>
+        <ion-chip>{{getDetallePeli()?.imdbRating}}</ion-chip>
+      </div>
+    </div>
   </ion-card>
 
   <ion-card>
     <ion-card-content>
-
       <ion-card-title>Resumen:</ion-card-title>
 
       <ion-card-subtitle>{{getDetallePeli()?.Plot}}</ion-card-subtitle>

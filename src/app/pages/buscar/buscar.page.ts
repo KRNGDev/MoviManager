@@ -1,5 +1,5 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular'; 
+import { AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonButton, IonItemSliding, IonItemOption, IonItemOptions, IonAvatar, IonLabel, IonInput, IonProgressBar, IonToast, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonAlert, IonSearchbar, IonIcon } from '@ionic/angular/standalone';
@@ -27,7 +27,7 @@ export class BuscarPage {
   cargando: boolean = false;
 
 
-  constructor(private servicio: HttpomdbService, private movieService: MoviesManagerService,private alertController:AlertController  ) { }
+  constructor(private servicio: HttpomdbService, private movieService: MoviesManagerService, private alertController: AlertController) { }
 
   async agregar(id: number) {
     try {
@@ -39,8 +39,8 @@ export class BuscarPage {
       const alert = await this.alertController.create({
         header: 'Ya Esta Guardada',
         message: 'La pelicula "' + this.peliculas[id].Title + '" ¡¡Ya esta Guardado en tu lista!!'
-        
-      }); 
+
+      });
       await alert.present();
 
     }
@@ -49,21 +49,19 @@ export class BuscarPage {
   }
 
 
-  
+
   buscar() {
     this.estaCargando();
-    console.log("Buscando .." + this.tituloPelicula);
+
     this.servicio.getMovie(this.tituloPelicula).subscribe(data => {
       if (data.Response === 'False') {
-        console.error("DAto no encontrado");
+
         this.estaCargando();
         this.mensajeAlerta = "No se ha encontrado ninguna pelicula con la busqueda : '" + this.tituloPelicula + "'.";
         this.setErrorOpen(true);
       } else {
         this.estaCargando();
-        console.log(data.Search);
         this.peliculas = data.Search;
-        console.log(this.peliculas);
         this.movieService.setBuscar(this.peliculas);
         this.tituloPelicula = '';
 

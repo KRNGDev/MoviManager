@@ -1,0 +1,17 @@
+ion-list.list-md{
+   
+  
+    background-color: #1a1c8b;
+    padding-top:0;
+    padding-bottom:0;
+   
+  
+    box-shadow:2px 5px 20px 5px #000000 ;
+  }
+  ion-item::part(native) {
+    background: #1a1c8b;
+    color: #e7e5e5;
+
+    --border-color:var(--border-color);
+    
+  }

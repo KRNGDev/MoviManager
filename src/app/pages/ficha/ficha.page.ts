@@ -20,22 +20,21 @@ import { MovieDetallada } from 'src/app/interface/movieDetallada';
 export class FichaPage implements OnInit {
   public dato!: string;
   private activatedRoute = inject(ActivatedRoute);
-  private pelicula:MovieDetallada | undefined;
- 
+  private pelicula: MovieDetallada | undefined;
+
 
 
   constructor(private servicio: HttpomdbService, private location: Location) { }
 
   darFicha(): void {
-    
-    console.log("Mostrando datos .." + this.dato);
+
     this.servicio.mostrarPelicula(this.dato).subscribe(data => {
       if (data.Response === false) {
         console.error("Dato no encontrado");
         this.pelicula = data;
-       
+
       } else {
-       
+
         console.log(data.Title);
         this.pelicula = data;
         console.log(this.pelicula);
@@ -43,7 +42,7 @@ export class FichaPage implements OnInit {
     })
   }
 
-  getDetallePeli(){
+  getDetallePeli() {
     return this.pelicula;
   }
   pagAtras() {

@@ -94,7 +94,7 @@ ion-menu-button {
     border-top-right-radius: 13px;
   }
   ion-toolbar {
-    --background: #1f21ad;
+    --background: #181aa2;
     --color: white;
   
     --border-color: #1d1e5c;
@@ -110,13 +110,13 @@ ion-menu-button {
     --background: #1a1c8b;
   }
   ion-item::part(native) {
-    background: #211fad;
+    background: #090a2d;
     color: #fff;
     --border-color:var(--border-color);
     
   }
   ion-list.list-md{
-    background-color: #1f21ad;
+    background-color: #090a2d;
     padding-top:0;
     padding-bottom:0;
    
@@ -125,6 +125,6 @@ ion-menu-button {
  
   ion-menu::part(container) {
     border-radius: 20px 0px  0 20px;
-    max-width: 250px;
+    max-width: 50vw;
     box-shadow: 4px 0px 16px rgba(47, 0, 255, 0.18);
   }

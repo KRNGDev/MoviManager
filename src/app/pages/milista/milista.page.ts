@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular'; 
+import { AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonInput, IonToggle, IonLabel, IonNote, IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonProgressBar, IonCardContent, IonAlert, IonSearchbar } from '@ionic/angular/standalone';
+import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonInput, IonToggle, IonLabel, IonNote, IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonProgressBar, IonCardContent, IonAlert, IonSearchbar, IonSegment, IonSegmentButton, IonFooter, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from "ionicons";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MoviesManagerService } from 'src/app/service/movies-manager.service';
 import { Movie } from 'src/app/interface/movie';
+import { heart, heartSharp, heartOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-milista',
   templateUrl: './milista.page.html',
   styleUrls: ['./milista.page.scss'],
   standalone: true,
-  imports: [IonSearchbar, IonAlert, IonCardContent, IonThumbnail, RouterLink, RouterLinkActive, IonProgressBar, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonAvatar, IonItemOption, IonItemOptions, IonItemSliding, IonButton, IonNote, IonLabel, IonToggle, IonInput, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonIcon, IonFooter, IonSegmentButton, IonSegment, IonSearchbar, IonAlert, IonCardContent, IonThumbnail, RouterLink, RouterLinkActive, IonProgressBar, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonAvatar, IonItemOption, IonItemOptions, IonItemSliding, IonButton, IonNote, IonLabel, IonToggle, IonInput, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class MilistaPage implements OnInit {
   tituloBuscado: string = "";
@@ -24,7 +25,7 @@ export class MilistaPage implements OnInit {
 
 
 
-  constructor(protected servicio: MoviesManagerService,private alertController:AlertController) {
+  constructor(protected servicio: MoviesManagerService, private alertController: AlertController) {
     this.peliculas = this.servicio.getPeliculas();
     this.peliculasFiltradas = this.peliculas;
     servicio.setBuscar(this.peliculasFiltradas);
@@ -32,43 +33,55 @@ export class MilistaPage implements OnInit {
 
 
 
-  public alertButtons = (peli:Movie)=>[
+  public alertButtons = (peli: Movie) => [
     {
       text: 'Cancelar',
       role: 'cancel',
       handler: () => {
-        console.log('Alert canceled');
+
       },
     },
     {
       text: 'Borrar',
       role: 'confirm',
       handler: () => {
-        console.log('Alert confirmed');
+
         this.borrar(peli);
 
       },
     },
   ];
 
-  async pulsarBorrar(peli:Movie){
+  async pulsarBorrar(peli: Movie) {
     const alert = await this.alertController.create({
-      header: '¿Quiere borrarlo de la lista?',
-      message: 'La peícula "'+peli.Title+'" se eliminara de su lista',
+      header: 'Borrar "' + peli.Title + '"',
+      message: 'Esta acción no puede revertirse.',
       buttons: this.alertButtons(peli),
-    }); 
+    });
     await alert.present();
-  
+
   }
 
- 
 
 
+  setFav(peli: Movie) {
+
+    const pelicula = this.servicio.getPeliculas().find(obj => obj.imdbID === peli.imdbID);
+    if (pelicula) {
+      if (pelicula.fav) {
+        pelicula.fav = false;
+        this.servicio.guardarPelicula();
+      } else {
+        pelicula.fav = true;
+        this.servicio.guardarPelicula();
+      }
+    }
+  }
 
 
-  buscar(event:any) {
+  buscar(event: any) {
     this.peliculasFiltradas = this.peliculas.filter(peli => peli.Title.toLowerCase().includes(event.target.value.toLocaleLowerCase()));
-    console.log(event);
+
     this.servicio.setBuscar(this.peliculasFiltradas);
   }
   borrar(peli: Movie) {
@@ -81,6 +94,7 @@ export class MilistaPage implements OnInit {
 
 
   ngOnInit() {
+    addIcons({ heart, heartSharp, heartOutline });
   }
 
 }

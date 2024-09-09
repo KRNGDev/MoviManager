@@ -6,5 +6,5 @@ export interface Movie {
     Year: number,
     Poster: string,
     sinopsis: string,
-    fav: boolean,
+    fav: boolean | undefined,
 }

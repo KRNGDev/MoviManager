@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Movie Manager | Buscar</ion-title>
+    <ion-title>Buscar</ion-title>
     <ion-avatar aria-hidden="true" slot="start">
       <img alt="" src="../../../assets/icono.png" />
     </ion-avatar>
@@ -13,7 +13,6 @@
     <ion-input
       [(ngModel)]="tituloPelicula"
       name="tituloPelicula"
-     
       placeholder="  Pelicula"
     ></ion-input>
   </ion-item>
@@ -26,7 +25,6 @@
       <ion-title size="large">Buscar</ion-title>
     </ion-toolbar>
   </ion-header>
-  
 
   <ion-card>
     <ion-card-header>
@@ -66,7 +64,6 @@
   <ion-alert
     [isOpen]="isAlertError"
     header="Error en la Busqueda"
-   
     [message]="mensajeAlerta"
     (didDismiss)="setErrorOpen(false)"
   ></ion-alert>

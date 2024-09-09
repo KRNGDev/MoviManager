@@ -1,7 +1,9 @@
-ion-card img{
+ion-card div img{
     max-width: 50%;
+    max-height: 300px;
  }
- ion-card.cabecera{
+ ion-card div.cabecera{
      display: flex;
      flex-direction: row;
+    align-items: center;
  }
