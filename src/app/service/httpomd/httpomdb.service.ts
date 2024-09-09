@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { delay, Observable } from 'rxjs';
+import { MovieDetallada } from 'src/app/interface/movieDetallada';
 import { environment } from 'src/environments/environment';
 
 const BASE_URL = 'https://www.omdbapi.com/';
@@ -19,5 +20,10 @@ export class HttpomdbService {
 
   getMovie(title: string): Observable<any> {
     return this.http.get<any>(`${BASE_URL}?apikey=${API_KEY}&s=${title}`).pipe(delay(1000));
+  }
+
+  mostrarPelicula(id:string):Observable<MovieDetallada>{
+ 
+    return this.http.get<any>(`${BASE_URL}?apikey=${API_KEY}&i=${id}&plot=full`)
   }
 }

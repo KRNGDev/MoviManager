@@ -1,27 +1,47 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Movie Manager | Detalle</ion-title>
-    <ion-avatar aria-hidden="true" slot="end">
-      <img alt="" src="../../../assets/logo.png" />
+    <ion-avatar  aria-hidden="true" slot="start">
+      <img alt="" src="../../../assets/icono.png" />
     </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card class="ficha">
-    <img alt="Silhouette of mountains" [src]="[darFicha().Poster]" />
-    <ion-card-header>
-      <ion-card-title>{{darFicha().Title}}</ion-card-title>
-      <ion-card-subtitle>{{darFicha().Year}}</ion-card-subtitle>
-    </ion-card-header>
+<ion-content *ngIf="getDetallePeli()===undefined">
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ion-content>
 
+<ion-content *ngIf="getDetallePeli()!==undefined" [fullscreen]="true">
+  <ion-card class="cabecera">
+
+    <img class="ion-margin " alt="Silhouette of mountains" [src]="[getDetallePeli()?.Poster]" />
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{getDetallePeli()?.Title}}</ion-card-title>
+        <ion-card-subtitle>{{getDetallePeli()?.Year}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-subtitle>Director:</ion-card-subtitle>
+      <ion-chip>{{getDetallePeli()?.Director}}</ion-chip>
+
+      <ion-card-subtitle>Reparto:</ion-card-subtitle>
+      <ion-chip>{{getDetallePeli()?.Actors}}</ion-chip>
+
+      <ion-card-subtitle>Critica:</ion-card-subtitle>
+      <ion-chip>{{getDetallePeli()?.imdbRating}}</ion-chip>
+    </ion-card>
+  </ion-card>
+
+  <ion-card>
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more,
-      nothing less.
+
+      <ion-card-title>Resumen:</ion-card-title>
+
+      <ion-card-subtitle>{{getDetallePeli()?.Plot}}</ion-card-subtitle>
     </ion-card-content>
+
     <ion-button (click)="pagAtras()">Atras</ion-button>
   </ion-card>
 </ion-content>

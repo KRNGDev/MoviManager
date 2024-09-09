@@ -1,3 +1,7 @@
-.ficha{
-    justify-items: center;
+ion-card img{
+   max-width: 50%;
+}
+ion-card.cabecera{
+    display: flex;
+    flex-direction: row;
 }

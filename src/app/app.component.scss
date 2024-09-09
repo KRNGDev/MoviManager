@@ -1,5 +1,6 @@
 ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  --background: #1f21ad;
+  
 }
 
 ion-menu.md ion-content {
@@ -29,13 +30,24 @@ ion-menu.md ion-list#inbox-list {
 ion-menu.md ion-list#inbox-list ion-list-header {
   font-size: 22px;
   font-weight: 600;
-
+  text-align: right;
+  flex-direction: row-reverse;
   min-height: 20px;
 }
 
-ion-menu.md ion-list#labels-list ion-list-header {
-  font-size: 16px;
+ion-menu.md ion-list#inbox-list ion-label {
+  text-align: right;
+}
+ion-menu.md ion-list#inbox-list  {
+  text-align: right;
+}
+ion-menu.md ion-list#labels-list ion-label {
+  text-align: right;
+}
 
+ion-menu.md ion-list#labels-list ion-list-header {
+  font-size: 20px;
+  flex-direction: row-reverse;
   margin-bottom: 18px;
 
   color: #757575;

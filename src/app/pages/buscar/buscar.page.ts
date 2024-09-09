@@ -1,7 +1,8 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonButton, IonItemSliding, IonItemOption, IonItemOptions, IonAvatar, IonLabel, IonInput, IonProgressBar, IonToast, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonAlert } from '@ionic/angular/standalone';
+import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonButton, IonItemSliding, IonItemOption, IonItemOptions, IonAvatar, IonLabel, IonInput, IonProgressBar, IonToast, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonAlert, IonSearchbar, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from "ionicons";
 import { Movie } from 'src/app/interface/movie';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -13,7 +14,7 @@ import { HttpomdbService } from 'src/app/service/httpomd/httpomdb.service';
   templateUrl: './buscar.page.html',
   styleUrls: ['./buscar.page.scss'],
   standalone: true,
-  imports: [IonAlert, IonCardContent, IonThumbnail, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonToast, RouterLinkActive, RouterLink, IonProgressBar, IonInput, IonLabel, IonAvatar, IonItemOptions, IonItemOption, IonItemSliding, IonButton, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonIcon, IonSearchbar, IonAlert, IonCardContent, IonThumbnail, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonToast, RouterLinkActive, RouterLink, IonProgressBar, IonInput, IonLabel, IonAvatar, IonItemOptions, IonItemOption, IonItemSliding, IonButton, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class BuscarPage {
   public tituloPelicula: string = "";
@@ -26,24 +27,29 @@ export class BuscarPage {
   cargando: boolean = false;
 
 
-  constructor(private servicio: HttpomdbService, private movieService: MoviesManagerService) { }
+  constructor(private servicio: HttpomdbService, private movieService: MoviesManagerService,private alertController:AlertController  ) { }
 
-  agregar(id: number) {
+  async agregar(id: number) {
     try {
       this.movieService.setPelicula(this.peliculas[id]);
       this.mensajeToast = 'Se ha guardado a Mi lista "' + this.peliculas[id].Title + '"';
       this.setToast();
     } catch (e) {
       console.log(e)
-      this.mensajeToast = 'La pelicula "' + this.peliculas[id].Title + '" ¡¡ Ya esta Guardado en tu lista !!';
-      this.setToast();
+      const alert = await this.alertController.create({
+        header: 'Ya Esta Guardada',
+        message: 'La pelicula "' + this.peliculas[id].Title + '" ¡¡Ya esta Guardado en tu lista!!'
+        
+      }); 
+      await alert.present();
 
     }
 
 
-
-
   }
+
+
+  
   buscar() {
     this.estaCargando();
     console.log("Buscando .." + this.tituloPelicula);

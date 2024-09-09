@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Movie } from '../interface/movie';
 import { Storage } from '@ionic/storage-angular'
 import { Observable } from 'rxjs';
+import { MovieDetallada } from '../interface/movieDetallada';
 
 const NODO_RAIZ = "peliculas";
 
@@ -10,6 +11,7 @@ const NODO_RAIZ = "peliculas";
 })
 export class MoviesManagerService {
   private peliculas: Movie[] = [];
+  private peliculasDetallada: MovieDetallada[] = [];
   private peliBuscar: Movie[] = [];
   constructor(private storage: Storage) {
     this.init();
@@ -75,6 +77,9 @@ export class MoviesManagerService {
 
   public getPeliculas(): Movie[] {
     return this.peliculas;
+  }
+  public getPeliculasDetallada(): MovieDetallada[] {
+    return this.peliculasDetallada;
   }
 
   public getBuscar(): Movie[] {

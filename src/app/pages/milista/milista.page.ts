@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonInput, IonToggle, IonLabel, IonNote, IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonProgressBar, IonCardContent, IonAlert } from '@ionic/angular/standalone';
+import { IonContent, IonThumbnail, IonMenuButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonList, IonItem, IonInput, IonToggle, IonLabel, IonNote, IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonProgressBar, IonCardContent, IonAlert, IonSearchbar } from '@ionic/angular/standalone';
 import { addIcons } from "ionicons";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MoviesManagerService } from 'src/app/service/movies-manager.service';
@@ -12,16 +13,26 @@ import { Movie } from 'src/app/interface/movie';
   templateUrl: './milista.page.html',
   styleUrls: ['./milista.page.scss'],
   standalone: true,
-  imports: [IonAlert, IonCardContent, IonThumbnail, RouterLink, RouterLinkActive, IonProgressBar, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonAvatar, IonItemOption, IonItemOptions, IonItemSliding, IonButton, IonNote, IonLabel, IonToggle, IonInput, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonSearchbar, IonAlert, IonCardContent, IonThumbnail, RouterLink, RouterLinkActive, IonProgressBar, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonAvatar, IonItemOption, IonItemOptions, IonItemSliding, IonButton, IonNote, IonLabel, IonToggle, IonInput, IonItem, IonList, IonButtons, IonMenuButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class MilistaPage implements OnInit {
   tituloBuscado: string = "";
   peliculas: Movie[];
   peliculasFiltradas: Movie[];
   cargando: boolean = false;
-  borrando: boolean = false;
 
-  public alertButtons = [
+
+
+
+  constructor(protected servicio: MoviesManagerService,private alertController:AlertController) {
+    this.peliculas = this.servicio.getPeliculas();
+    this.peliculasFiltradas = this.peliculas;
+    servicio.setBuscar(this.peliculasFiltradas);
+  }
+
+
+
+  public alertButtons = (peli:Movie)=>[
     {
       text: 'Cancelar',
       role: 'cancel',
@@ -34,30 +45,30 @@ export class MilistaPage implements OnInit {
       role: 'confirm',
       handler: () => {
         console.log('Alert confirmed');
+        this.borrar(peli);
+
       },
     },
   ];
 
-  eliminar(id: number) {
-    console.log("Eliminando...")
-    this.borrando = true;
-
+  async pulsarBorrar(peli:Movie){
+    const alert = await this.alertController.create({
+      header: '¿Quiere borrarlo de la lista?',
+      message: 'La peícula "'+peli.Title+'" se eliminara de su lista',
+      buttons: this.alertButtons(peli),
+    }); 
+    await alert.present();
+  
   }
 
-  ocultarDialogo() {
-    this.borrando = false;
-  }
+ 
 
 
-  constructor(protected servicio: MoviesManagerService) {
-    this.peliculas = this.servicio.getPeliculas();
-    this.peliculasFiltradas = this.peliculas;
-    servicio.setBuscar(this.peliculasFiltradas);
-  }
 
-  buscar() {
-    this.peliculasFiltradas = this.peliculas.filter(peli => peli.Title.toLowerCase().includes(this.tituloBuscado.toLocaleLowerCase()));
-    console.log(this.tituloBuscado);
+
+  buscar(event:any) {
+    this.peliculasFiltradas = this.peliculas.filter(peli => peli.Title.toLowerCase().includes(event.target.value.toLocaleLowerCase()));
+    console.log(event);
     this.servicio.setBuscar(this.peliculasFiltradas);
   }
   borrar(peli: Movie) {
