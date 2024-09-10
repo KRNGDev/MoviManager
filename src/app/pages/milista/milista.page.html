@@ -38,34 +38,32 @@
     <ion-card-content>
       <ion-list lines="full" class="peliculas">
         <ion-item-sliding *ngFor="let peli of peliculasFiltradas;index as i">
-          <ion-item-options side="start">
-            <ion-item-option>Favorito</ion-item-option>
-          </ion-item-options>
+          
           <ion-item>
-            <ion-item
+            <ion-item 
+            
               lines="none"
-              [button]="true"
               [routerLink]="['/ficha/',peli.imdbID]"
               routerLinkActive="router-link-active"
             >
               <ion-thumbnail slot="start">
                 <img [alt]="['imagen ',peli.Title]" [src]="[peli.Poster]" />
               </ion-thumbnail>
-              <ion-label>{{peli.Title}}</ion-label>
-              <ion-avatar>
-                <ion-label>{{peli.Year}} </ion-label>
-              </ion-avatar>
+              <ion-thumbnail class="datos">
+                <ion-label>{{peli.Title}}</ion-label>
+              </ion-thumbnail>
+               
             </ion-item>
-            <ion-item lines="none">
+            <ion-item slot="end" lines="none">
               <ion-icon
                 (click)="setFav(peli)"
-                *ngIf="peli.fav!=true"
+                *ngIf="peli.fav!==true"
                 class="corazon"
                 name="heart-outline"
               ></ion-icon>
               <ion-icon
                 (click)="setFav(peli)"
-                *ngIf="peli.fav==true"
+                *ngIf="peli.fav===true"
                 class="corazon"
                 name="heart-sharp"
                 color="danger"
@@ -84,7 +82,7 @@
   </ion-card>
 </ion-content>
 <ion-footer>
-  <ion-segment color="primary" value="all">
+  <ion-segment (ionChange)="cambioSegmento($event)" color="primary" value="all">
     <ion-segment-button value="all">
       <ion-label>Vistas</ion-label>
     </ion-segment-button>

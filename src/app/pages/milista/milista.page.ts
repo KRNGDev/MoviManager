@@ -21,6 +21,7 @@ export class MilistaPage implements OnInit {
   peliculas: Movie[];
   peliculasFiltradas: Movie[];
   cargando: boolean = false;
+  favoritos: boolean = false;
 
 
 
@@ -29,6 +30,28 @@ export class MilistaPage implements OnInit {
     this.peliculas = this.servicio.getPeliculas();
     this.peliculasFiltradas = this.peliculas;
     servicio.setBuscar(this.peliculasFiltradas);
+  }
+
+
+  cambioSegmento(evento: any) {
+    const tipoEvento = evento.detail.value;
+    console.log('Segment changed', tipoEvento);
+
+    this.mostrarPeliSeleccionada(tipoEvento);
+  }
+  
+
+  mostrarPeliSeleccionada(evento: any) {
+
+    if (evento === 'favorites') {
+      this.favoritos = true;
+
+      this.peliculasFiltradas = this.peliculas.filter(peli => peli.fav === true);
+
+    } else {
+      this.favoritos = false;
+      this.peliculasFiltradas = this.peliculas
+    }
   }
 
 
@@ -80,10 +103,16 @@ export class MilistaPage implements OnInit {
 
 
   buscar(event: any) {
-    this.peliculasFiltradas = this.peliculas.filter(peli => peli.Title.toLowerCase().includes(event.target.value.toLocaleLowerCase()));
 
+    if (this.favoritos) {
+      this.peliculasFiltradas = this.peliculas.filter(peli => peli.Title.toLowerCase().includes(event.target.value.toLocaleLowerCase()) && peli.fav === true);
+    } else {
+      this.peliculasFiltradas = this.peliculas.filter(peli => peli.Title.toLowerCase().includes(event.target.value.toLocaleLowerCase()));
+    }
     this.servicio.setBuscar(this.peliculasFiltradas);
   }
+
+
   borrar(peli: Movie) {
     this.servicio.borrarPelicula(peli);
   }
