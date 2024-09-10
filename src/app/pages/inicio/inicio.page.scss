@@ -2,8 +2,25 @@ ion-card div img{
     max-width: 50%;
     max-height: 300px;
  }
- ion-card div.cabecera{
+ ion-item div.cabecera{
      display: flex;
      flex-direction: row;
     align-items: center;
+ }
+ ion-item::part(native) {
+    background: #1a1c8b;
+    display: flex;
+    flex-direction: column;
+    color: #e7e5e5;
+    padding: 0;
+    
+  }
+
+#container {
+   text-align: center;
+   position: absolute;
+   left: 0;
+   right: 0;
+   top: 50%;
+   transform: translateY(-50%);
  }

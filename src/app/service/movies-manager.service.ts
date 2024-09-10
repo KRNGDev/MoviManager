@@ -68,11 +68,7 @@ export class MoviesManagerService {
       this.peliculas.push(peli);
       this.guardarPelicula();
     }
-
-
   }
-
-
   //Obtener todas las películas
 
   public getPeliculas(): Movie[] {
@@ -86,10 +82,6 @@ export class MoviesManagerService {
     return this.peliBuscar;
   }
   public setBuscar(peli: Movie[]) {
-
     this.peliBuscar = peli;
-
   }
-
-
 }

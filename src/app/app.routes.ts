@@ -33,10 +33,11 @@ export const routes: Routes = [
   },
   {
     path: 'pages/inicio',
-    loadComponent: () => import('./pages/inicio/inicio.page').then( m => m.InicioPage)
-  },  {
+    loadComponent: () => import('./pages/inicio/inicio.page').then(m => m.InicioPage)
+  },
+  {
     path: 'salir',
-    loadComponent: () => import('./pages/salir/salir.page').then( m => m.SalirPage)
+    loadComponent: () => import('./pages/salir/salir.page').then(m => m.SalirPage)
   },
 
 

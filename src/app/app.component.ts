@@ -22,4 +22,5 @@ export class AppComponent {
   constructor() {
     addIcons({ mailOutline, exit, exitOutline, exitSharp, search, searchOutline, searchSharp, searchCircle, searchCircleOutline, searchCircleSharp, library, libraryOutline, librarySharp, planet, planetOutline, planetSharp, home, homeOutline, homeSharp, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp });
   }
+
 }

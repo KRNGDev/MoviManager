@@ -42,10 +42,7 @@ export class BuscarPage {
 
       });
       await alert.present();
-
     }
-
-
   }
 
 
@@ -53,7 +50,7 @@ export class BuscarPage {
   buscar() {
     this.estaCargando();
 
-    this.servicio.getMovie(this.tituloPelicula).subscribe(data => {
+    this.servicio.getMovies(this.tituloPelicula).subscribe(data => {
       if (data.Response === 'False') {
 
         this.estaCargando();

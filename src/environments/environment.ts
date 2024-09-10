@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  OMDB_API_KEY: 'fbdb846b'
+  OMDB_API_KEY: 'fbdb846b',
+  OMDB_BASE_URL: 'https://www.omdbapi.com/'
 };
 
 /*
