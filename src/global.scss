@@ -131,7 +131,9 @@ ion-menu-button {
 
     color: #e7e5e5;
   }
- 
+  ion-chip{
+    color: #e7e5e5;
+  }
   ion-menu::part(container) {
     border-radius: 20px 0px  0 20px;
     max-width: 50vw;
