@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button ></ion-menu-button>
     </ion-buttons>
     <ion-title> Mi lista</ion-title>
 
@@ -59,6 +59,7 @@
                 (click)="setFav(peli)"
                 *ngIf="peli.fav!==true"
                 class="corazon"
+                color="Light"
                 name="heart-outline"
               ></ion-icon>
               <ion-icon
@@ -82,9 +83,9 @@
   </ion-card>
 </ion-content>
 <ion-footer>
-  <ion-segment (ionChange)="cambioSegmento($event)" color="primary" value="all">
-    <ion-segment-button value="all">
-      <ion-label>Vistas</ion-label>
+  <ion-segment (ionChange)="cambioSegmento($event)" color="light" value="all">
+    <ion-segment-button  value="all">
+      <ion-label >Vistas</ion-label>
     </ion-segment-button>
     <ion-segment-button value="favorites">
       <ion-label>Favoritas</ion-label>

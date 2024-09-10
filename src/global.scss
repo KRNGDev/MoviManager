@@ -35,6 +35,12 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+:root{
+  --ion-background-color: #1c1738;
+}
+:root.md {
+  --ion-text-color: #eceaea;
+}
 ion-menu-button {
   color: var(--ion-color-primary);
   }
@@ -121,7 +127,10 @@ ion-menu-button {
     padding-bottom:0;
    
   }
+  ion-card-title{
 
+    color: #e7e5e5;
+  }
  
   ion-menu::part(container) {
     border-radius: 20px 0px  0 20px;
