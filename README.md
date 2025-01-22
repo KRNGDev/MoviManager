@@ -28,8 +28,7 @@
 3. Instala las dependencias:
    ```bash
    npm install
-
-##Uso
+## Uso
 1. Para iniciar la aplicación en un entorno de desarrollo:
     ```bash
     ionic serve
